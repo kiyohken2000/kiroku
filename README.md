@@ -21,3 +21,5 @@ eas device:list
 
 // パッケージの変更を保存
 npx patch-package react-native-credit-card-form-ui
+
+https://kiyohken2000.github.io/kiroku/ja
