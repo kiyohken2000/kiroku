@@ -7,6 +7,7 @@ import Welcome from '../../../scenes/welcome/Welcome'
 import Agreement from '../../../scenes/agreement/Agreement'
 import History from '../../../scenes/history/History'
 import Scan from '../../../scenes/scan/Scan'
+import HistoryDetail from '../../../scenes/historyDetail/HistoryDetail'
 
 const Stack = createStackNavigator()
 
@@ -61,6 +62,21 @@ export const HomeStacks = () => {
           headerBackTitleVisible: false,
         })}
       />
+      <Stack.Group
+        screenOptions={{
+          presentation: 'modal',
+          headerShown: false
+        }}
+      >
+        <Stack.Screen
+          name="HistoryDetail"
+          component={HistoryDetail}
+          options={({ navigation }) => ({
+            title: '詳細',
+            headerBackTitleVisible: false,
+          })}
+        />
+      </Stack.Group>
     </Stack.Navigator>
   )
 }

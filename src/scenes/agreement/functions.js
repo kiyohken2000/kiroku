@@ -38,10 +38,16 @@ const generateQRcode = ({user, location}) => {
   return response
 }
 
-const storeCode = async({qrcodeValue}) => {
+const storeCode = async({qrcodeValue, data}) => {
   const currentData = await loadData()
   const newData = [...currentData, qrcodeValue]
   await storage.save({key: storageKey.code, data: newData})
+  await saveAgreement({data, qrcodeValue})
+}
+
+const saveAgreement = async({data, qrcodeValue}) => {
+  const { timestamp } = JSON.parse(qrcodeValue)
+  await storage.save({key: `${timestamp}`, data})
 }
 
 const loadData = async() => {

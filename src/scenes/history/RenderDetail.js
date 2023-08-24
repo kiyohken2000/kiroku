@@ -2,12 +2,19 @@ import React from "react";
 import { View, Text, StyleSheet, Dimensions } from "react-native";
 import { colors, fontSize } from "../../theme";
 import MapView, { Marker } from 'react-native-maps';
+import ShadowButton from "../../components/ShadowButton";
+import { useNavigation } from "@react-navigation/native";
 
 const { height, width } = Dimensions.get('window')
 
 export default function RenderDetail(props) {
+  const navigation = useNavigation()
   const { myCode, id, latitude, longitude, date, timestamp } = props
-  const description = `${myCode?'自分':'相手'}が同意した場所`
+  const description = myCode?'自分':'相手'
+
+  const onDetailPress = () => {
+    navigation.navigate('HistoryDetail', { timestamp })
+  }
 
   return (
     <View styles={styles.container}>
@@ -23,10 +30,21 @@ export default function RenderDetail(props) {
         <Marker
           coordinate={{ latitude: latitude, longitude: longitude }}
           title={date}
-          description={description}
+          description={`${description}description`}
         />
       </MapView>
-      <Text style={styles.id}>ID: {id}</Text>
+      <View style={{paddingVertical: 10}}>
+        <Text style={styles.id}>{description}のID: {id}</Text>
+      </View>
+      {myCode?
+        <ShadowButton
+          label='詳細'
+          onPress={onDetailPress}
+          color={colors.white}
+          labelColor={colors.graySecondary}
+        />
+        :null
+      }
     </View>
   )
 }
@@ -39,7 +57,7 @@ const styles = StyleSheet.create({
     height: width * 0.9,
   },
   id: {
-    fontSize: fontSize.middle,
+    fontSize: fontSize.small,
     color: colors.graySecondary
   }
 })

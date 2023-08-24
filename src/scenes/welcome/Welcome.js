@@ -1,10 +1,11 @@
 import React from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, Image, Dimensions } from "react-native";
 import { fontSize, colors } from "../../theme";
 import ScreenTemplate from "../../components/ScreenTemplate";
-import Button from "../../components/Button";
 import { useNavigation } from "@react-navigation/native";
 import ShadowButton from "../../components/ShadowButton";
+
+const { height, width } = Dimensions.get('window')
 
 export default function Welcome() {
   const navigation = useNavigation()
@@ -17,8 +18,15 @@ export default function Welcome() {
     <ScreenTemplate>
       <View style={styles.container}>
         <View style={{flex: 4, alignItems: 'center', justifyContent: 'center'}}>
-          <Text style={styles.label}>性的記録同意アプリ</Text>
-          <Text style={styles.title}>キロク</Text>
+          <View style={{alignItems: 'center', paddingBottom: 30}}>
+            <Text style={styles.label}>性的記録同意アプリ</Text>
+            <Text style={styles.title}>Kiroku</Text>
+          </View>
+          <Image
+            source={require('../../../assets/images/logo-sm.png')}
+            resizeMode='contain'
+            style={styles.image}
+          />
         </View>
         <View style={{flex: 1, paddingHorizontal: 20}}>
           <ShadowButton
@@ -43,5 +51,10 @@ const styles = StyleSheet.create({
   title: {
     fontSize: fontSize.xxxLarge,
     fontWeight: '700'
+  },
+  image: {
+    width: width * 0.7,
+    height: width * 0.7,
+    borderRadius: 10
   }
 })

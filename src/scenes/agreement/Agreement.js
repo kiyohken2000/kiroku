@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Alert } from "react-native";
 import { colors, fontSize } from "../../theme";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import BottomButton from "../../components/BottomButton";
@@ -12,6 +12,9 @@ import { dataUrl } from "../../config";
 import { formatData, getLocation, storeCode } from "./functions";
 import { dummyData, dummyLocation } from "./data";
 import Divider from "../../components/Divider";
+import { showToast } from "../../utils/showToast";
+import * as LocalAuthentication from "expo-local-authentication";
+import * as Device from 'expo-device';
 
 export default function Agreement() {
   const navigation = useNavigation()
@@ -64,18 +67,52 @@ export default function Agreement() {
   }
 
   const onShowCodePress = async() => {
-    setIsLoading(true)
-    const location = await getLocation()
-    setLocation(location)
-    setIsShowCode(true)
-    setIsLoading(false)
+    const isDevice = Device.isDevice
+    if(isDevice) {
+      setIsLoading(true)
+      const isAuth = await LocalAuthentication.hasHardwareAsync()
+      const savedBiometrics = await LocalAuthentication.isEnrolledAsync()
+      console.log('デバイスが生体認証を利用できる', isAuth)
+      console.log('デバイスに生体認証情報が保存されている', savedBiometrics)
+      if(!isAuth || !savedBiometrics) {
+        Alert.alert('生体認証が利用できません')
+        setIsLoading(false)
+      } else {
+        const result = await handleBiometricAuth()
+        if(result.success) {
+          const location = await getLocation()
+          setLocation(location)
+          setIsShowCode(true)
+          setIsLoading(false)
+        } else {
+          setIsLoading(false)
+          Alert.alert('認証に失敗しました')
+        }
+      }
+    } else {
+      setIsLoading(true)
+      const location = await getLocation()
+      setLocation(location)
+      setIsShowCode(true)
+      setIsLoading(false)
+    }
   }
 
   const onCompletePress = async() => {
     setIsLoading(true)
-    await storeCode({qrcodeValue})
+    await storeCode({qrcodeValue, data})
     setIsLoading(false)
+    showToast({title: '保存しました'})
     navigation.navigate('Home')
+  }
+
+  const handleBiometricAuth = async() => {
+    const biometricAuth = await LocalAuthentication.authenticateAsync({
+      promptMessage: '生体情報で同意',
+      cancelLabel: 'キャンセル',
+      disableDeviceFallback: false
+    })
+    return biometricAuth
   }
 
   return (

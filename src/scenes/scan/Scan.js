@@ -11,7 +11,7 @@ export default function Scan() {
   const navigation = useNavigation()
   const [hasPermission, setHasPermission] = useState(null)
   const [scanned, setScanned] = useState(false)
-  const infoText = '相手の' + '\n' + 'QRコードを読み込んでください。';
+  const infoText = '相手の' + '\n' + 'QRコードを読み取ってください';
 
   useFocusEffect(() => {
     setScanned(false)
