@@ -1,12 +1,11 @@
 {
   "expo": {
-    "name": "react-native-boilerplate",
-    "slug": "react-native-boilerplate",
+    "name": "Kiroku",
+    "slug": "kiroku",
     "privacy": "public",
     "platforms": [
       "ios",
-      "android",
-      "web"
+      "android"
     ],
     "version": "1.0.0",
     "orientation": "portrait",
@@ -19,28 +18,45 @@
     "updates": {
       "enabled": true,
       "fallbackToCacheTimeout": 10000,
-      "url": "https://u.expo.dev/a3fb8cb1-7c9e-44a5-997b-be7ec8afde20"
+      "url": "https://u.expo.dev/77c0224b-a231-42c7-bff8-b404fd952586"
     },
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "reactnative.expo.firebase.boilerplate",
-      "buildNumber": "1.0.0",
+      "supportsTablet": false,
+      "bundleIdentifier": "net.votepurchase.kiroku",
+      "buildNumber": "1",
       "infoPlist": {
         "NSPhotoLibraryUsageDescription": "Use the photo library to change your avatar.",
+        "NSLocationWhenInUseUsageDescription": "このアプリは同意確認時の情報を記録するために位置情報使用します",
+        "NSCameraUsageDescription": "このアプリは同意確認したQRコードを読み取るためにカメラを使用します",
+        "NSFaceIDUsageDescription": "このアプリは同意確認を行うためにFaceIDを使用します",
         "CFBundleDevelopmentRegion": "ja_JP"
+      },
+      "config": {
+        "googleMapsApiKey": "AIzaSyAHkA0ct8pTIdAdDKZChS69sVKUZpjUrFg"
       },
       "userInterfaceStyle": "automatic"
     },
     "android": {
-      "package": "reactnative.expo.firebase.boilerplate",
+      "package": "net.votepurchase.kiroku",
       "versionCode": 1,
       "userInterfaceStyle": "automatic",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyAHkA0ct8pTIdAdDKZChS69sVKUZpjUrFg"
+        }
+      },
       "permissions": [
         "VIBRATE",
-        "CAMERA"
+        "CAMERA",
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "USE_FINGERPRINT",
+        "FOREGROUND_SERVICE",
+        "USE_BIOMETRIC",
+        "WRITE_EXTERNAL_STORAGE"
       ]
     },
     "packagerOpts": {
@@ -55,11 +71,11 @@
     },
     "extra": {
       "eas": {
-        "projectId": "a3fb8cb1-7c9e-44a5-997b-be7ec8afde20"
+        "projectId": "77c0224b-a231-42c7-bff8-b404fd952586"
       }
     },
     "runtimeVersion": {
-      "policy": "sdkVersion"
+      "policy": "appVersion"
     }
   }
 }

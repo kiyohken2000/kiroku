@@ -7,7 +7,7 @@ const headerMode = 'float'
 const navigationProps = {
   headerTintColor: headerTintColor,
   headerStyle: { 
-    backgroundColor: colors.darkPurple
+    backgroundColor: colors.grayThird
   },
   headerTitleStyle: { fontSize: fontSize },
   headerMode: headerMode

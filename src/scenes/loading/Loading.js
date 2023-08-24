@@ -4,6 +4,7 @@ import { authenticate } from 'slices/app.slice'
 import { Text, SafeAreaView, StyleSheet } from "react-native";
 import { UserContext } from '../../contexts/UserContext';
 import { fontSize } from 'theme'
+import { loadUser, removeData } from './functions';
 
 export default function Loading() {
   const dispatch = useDispatch()
@@ -14,9 +15,11 @@ export default function Loading() {
   }, [])
 
   const initialize = async() => {
+    //await removeData()
+    const uuid = await loadUser()
     const user = {
-      id: 'user-1234567',
-      userName: 'abcdef'
+      id: uuid,
+      userName: 'abcdef(not use)'
     }
     setUser(user)
     dispatch(authenticate({ loggedIn: true, checked: true }))

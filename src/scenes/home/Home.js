@@ -1,81 +1,58 @@
 import React, { useContext, useEffect } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, Dimensions } from 'react-native'
 import Button from '../../components/Button'
 import { colors, fontSize } from '../../theme'
 import { useNavigation } from '@react-navigation/native'
-import { UserContext } from '../../contexts/UserContext'
 import ScreenTemplate from '../../components/ScreenTemplate'
-import { showToast } from '../../utils/showToast'
+import AgreementButton from './AgreementButton'
+import ShadowButton from '../../components/ShadowButton'
+import BottomButton from '../../components/BottomButton'
+import { UserContext } from '../../contexts/UserContext'
+
+const { height, width } = Dimensions.get('window')
 
 export default function Home() {
   const navigation = useNavigation()
   const { user } = useContext(UserContext)
 
-  useEffect(() => {
-    console.log('user:', user)
-  }, [])
+  const onGoAgreementPress = () => {
+    navigation.navigate('Agreement')
+  }
 
-  const onToastPress = () => {
-    showToast({title: 'Hello', body: 'React Native Developer'})
+  const onHistoryPress = () => {
+    navigation.navigate('History')
+  }
+
+  const onScanPress = () => {
+    navigation.navigate('Scan')
   }
   
   return (
     <ScreenTemplate>
       <View style={styles.root}>
-        <Text style={styles.title}>Home</Text>
-        <View style={styles.textContainer}>
-          <Text>ヘッダーなしボトムタブあり</Text>
+        <View style={{flex: 6, alignItems: 'center', justifyContent: 'center', width: width * 0.8, alignSelf: 'center' }}>
+          <AgreementButton
+            onPress={onGoAgreementPress}
+          />
+          <View style={{paddingVertical: 20}} />
+          <ShadowButton
+            onPress={onHistoryPress}
+            label='同意履歴を見る'
+            color={colors.white}
+            labelColor={colors.graySecondary}
+          />
+          <View style={{paddingVertical: 20}} />
+          <ShadowButton
+            onPress={onScanPress}
+            label='スキャンする'
+            color={colors.white}
+            labelColor={colors.graySecondary}
+          />
         </View>
-        <View style={styles.buttonContainer}>
-          <Button
-            label="Go to Details"
-            color={colors.darkPurple}
-            disable={false}
-            labelColor={colors.white}
-            onPress={() => {
-              navigation.navigate('Details', { from: 'Home' })
-            }}
-          />
-          <View style={{marginVertical: 10}} />
-          <Button
-            label="Go to Modal"
-            color={colors.bluePrimary}
-            labelColor={colors.white}
-            disable={false}
-            onPress={() => {
-              navigation.navigate('ModalStack', {
-                screen: 'Modal',
-                params: {from: 'Home'}
-              })
-            }}
-          />
-          <View style={{marginVertical: 10}} />
-          <Button
-            label="Go to Modal"
-            color={colors.lightPurple}
-            labelColor={colors.white}
-            disable={false}
-            onPress={() => {
-              navigation.navigate('Post')
-            }}
-          />
-          <View style={{marginVertical: 10}} />
-          <Button
-            label="Go to Modal"
-            color={colors.lightPurple}
-            labelColor={colors.white}
-            disable={false}
-            onPress={() => {
-              navigation.navigate('Menu')
-            }}
-          />
-          <View style={{marginVertical: 10}} />
-          <Button
-            label="Show Toast"
-            color={colors.lightPurple}
-            labelColor={colors.white}
-            disable={false}
-            onPress={onToastPress}
+        <View style={{flex: 1}}>
+          <BottomButton
+            onPress={onGoAgreementPress}
+            label='同意確認をする'
           />
         </View>
       </View>
@@ -86,21 +63,16 @@ export default function Home() {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
-  title: {
+  bottomButton: {
+    flex: 1,
+    backgroundColor: colors.graySecondary,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  bottomButtonLabel: {
     fontSize: fontSize.xxxLarge,
-    marginBottom: 20,
-  },
-  textContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingVertical: 5
-  },
-  buttonContainer: {
-    width: '100%',
-    paddingHorizontal: 10
+    fontWeight: '700',
+    color: colors.white
   }
 })

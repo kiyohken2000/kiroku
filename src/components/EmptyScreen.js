@@ -6,7 +6,7 @@ import { colors, fontSize } from '../theme';
 export default function EmptyScreen(props) {
   const animation = useRef(null);
   const { text } = props
-  const label = text?text:'現金残高の登録がありません。'
+  const label = text?text:'データがありません。'
   
   return (
     <View style={styles.container}>
