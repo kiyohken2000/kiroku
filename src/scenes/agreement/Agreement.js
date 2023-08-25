@@ -13,8 +13,8 @@ import { formatData, getLocation, storeCode } from "./functions";
 import { dummyData, dummyLocation } from "./data";
 import Divider from "../../components/Divider";
 import { showToast } from "../../utils/showToast";
-import * as LocalAuthentication from "expo-local-authentication";
 import * as Device from 'expo-device';
+import { biometricStatus, handleBiometricAuth } from "../../utils/biometricAuth";
 
 export default function Agreement() {
   const navigation = useNavigation()
@@ -70,14 +70,8 @@ export default function Agreement() {
     const isDevice = Device.isDevice
     if(isDevice) {
       setIsLoading(true)
-      const isAuth = await LocalAuthentication.hasHardwareAsync()
-      const savedBiometrics = await LocalAuthentication.isEnrolledAsync()
-      console.log('デバイスが生体認証を利用できる', isAuth)
-      console.log('デバイスに生体認証情報が保存されている', savedBiometrics)
-      if(!isAuth || !savedBiometrics) {
-        Alert.alert('生体認証が利用できません')
-        setIsLoading(false)
-      } else {
+      const isLocalAuthenticationAvailable = await biometricStatus()
+      if(isLocalAuthenticationAvailable) {
         const result = await handleBiometricAuth()
         if(result.success) {
           const location = await getLocation()
@@ -88,6 +82,9 @@ export default function Agreement() {
           setIsLoading(false)
           Alert.alert('認証に失敗しました')
         }
+      } else {
+        Alert.alert('生体認証が利用できません')
+        setIsLoading(false)
       }
     } else {
       setIsLoading(true)
@@ -104,15 +101,6 @@ export default function Agreement() {
     setIsLoading(false)
     showToast({title: '保存しました'})
     navigation.navigate('Home')
-  }
-
-  const handleBiometricAuth = async() => {
-    const biometricAuth = await LocalAuthentication.authenticateAsync({
-      promptMessage: '生体情報で同意',
-      cancelLabel: 'キャンセル',
-      disableDeviceFallback: false
-    })
-    return biometricAuth
   }
 
   return (

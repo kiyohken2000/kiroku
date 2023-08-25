@@ -1,6 +1,5 @@
 import React, { useContext, useEffect } from 'react'
-import { StyleSheet, Text, View, TouchableOpacity, Dimensions } from 'react-native'
-import Button from '../../components/Button'
+import { StyleSheet, Text, View, Alert, Dimensions } from 'react-native'
 import { colors, fontSize } from '../../theme'
 import { useNavigation } from '@react-navigation/native'
 import ScreenTemplate from '../../components/ScreenTemplate'
@@ -8,6 +7,8 @@ import AgreementButton from './AgreementButton'
 import ShadowButton from '../../components/ShadowButton'
 import BottomButton from '../../components/BottomButton'
 import { UserContext } from '../../contexts/UserContext'
+import * as Device from 'expo-device';
+import { biometricStatus, handleBiometricAuth } from '../../utils/biometricAuth'
 
 const { height, width } = Dimensions.get('window')
 
@@ -19,8 +20,23 @@ export default function Home() {
     navigation.navigate('Agreement')
   }
 
-  const onHistoryPress = () => {
-    navigation.navigate('History')
+  const onHistoryPress = async() => {
+    const isDevice = Device.isDevice
+    if(isDevice) {
+      const isLocalAuthenticationAvailable = await biometricStatus()
+      if(isLocalAuthenticationAvailable) {
+        const result = await handleBiometricAuth()
+        if(result.success) {
+          navigation.navigate('History')
+        } else {
+          Alert.alert('認証に失敗しました')
+        }
+      } else {
+        Alert.alert('生体認証が利用できません')
+      }
+    } else {
+      navigation.navigate('History')
+    }
   }
 
   const onScanPress = () => {

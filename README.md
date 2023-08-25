@@ -14,6 +14,11 @@ eas build --profile production --platform android
 // OTAアップデート
 expo publish --release-channel internal
 expo publish --release-channel production
+eas update --channel preview --message "Updating the app"
+eas update --channel production --message "Updating the app"
+
+eas update --branch preview --message "Updating the app"
+eas update --branch production --message "Updating the app"
 
 // iOS用:デバイス登録(開発用と内部配布バイナリのインストールに必須)
 eas device:create
