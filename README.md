@@ -1,3 +1,4 @@
+```
 // ビルド:開発用バイナリ
 eas build --profile development --platform ios
 eas build --profile development --platform android
@@ -20,6 +21,9 @@ eas device:create
 eas device:list
 
 // パッケージの変更を保存
-npx patch-package react-native-credit-card-form-ui
+npx patch-package [package name]
+```
+
+**プライバシーポリシー**
 
 https://kiyohken2000.github.io/kiroku/ja
