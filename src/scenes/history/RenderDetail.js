@@ -30,21 +30,18 @@ export default function RenderDetail(props) {
         <Marker
           coordinate={{ latitude: latitude, longitude: longitude }}
           title={date}
-          description={`${description}description`}
+          description={`${description}が同意した場所`}
         />
       </MapView>
       <View style={{paddingVertical: 10}}>
         <Text style={styles.id}>{description}のID: {id}</Text>
       </View>
-      {myCode?
-        <ShadowButton
-          label='詳細'
-          onPress={onDetailPress}
-          color={colors.white}
-          labelColor={colors.graySecondary}
-        />
-        :null
-      }
+      <ShadowButton
+        label='詳細'
+        onPress={onDetailPress}
+        color={colors.white}
+        labelColor={colors.graySecondary}
+      />
     </View>
   )
 }

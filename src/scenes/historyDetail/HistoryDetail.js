@@ -11,14 +11,22 @@ export default function HistoryDetail() {
   const routes = useRoute()
   const { timestamp } = routes.params
   const [ data, setData ] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
+  const [isError, setIsError] = useState(false)
 
   useEffect(() => {
     const loadData = async() => {
       try {
+        setIsError(false)
+        setIsLoading(true)
         const res = await storage.load({key: `${timestamp}`})
+        if(!res) return
         setData(res)
       } catch(e) {
         console.log('load data error', e)
+        setIsError(true)
+      } finally {
+        setIsLoading(false)
       }
     }
     loadData()
@@ -29,7 +37,7 @@ export default function HistoryDetail() {
   }
 
   return (
-    <ScreenTemplate>
+    <ScreenTemplate isLoading={isLoading} isError={isError} >
       <View style={styles.container}>
         <View style={{flex: 6}}>
           <ScrollView>
