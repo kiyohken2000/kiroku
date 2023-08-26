@@ -1,6 +1,7 @@
 import { storage } from "../../utils/storage";
 import uuid from 'react-native-uuid';
 import { storageKey } from "../../config";
+import DeviceInfo from "react-native-device-info";
 
 const loadUser = async() => {
   try {
@@ -14,9 +15,9 @@ const loadUser = async() => {
 }
 
 const createUser = async() => {
-  const result = uuid.v4()
-  await storage.save({key: storageKey.user, data: result})
-  return result
+  const deviceId = await DeviceInfo.getUniqueId()
+  await storage.save({key: storageKey.user, data: deviceId})
+  return deviceId
 }
 
 const removeData = async() => {
