@@ -1,11 +1,12 @@
 import React from "react";
-import { View, Text, StyleSheet, Dimensions } from "react-native";
+import { View, Text, StyleSheet, Dimensions, Platform } from "react-native";
 import { colors, fontSize } from "../../theme";
-import MapView, { Marker } from 'react-native-maps';
+import MapView, { Marker, PROVIDER_GOOGLE, PROVIDER_DEFAULT } from 'react-native-maps';
 import ShadowButton from "../../components/ShadowButton";
 import { useNavigation } from "@react-navigation/native";
 
 const { height, width } = Dimensions.get('window')
+const isAndroid = Platform.OS === 'android'
 
 export default function RenderDetail(props) {
   const navigation = useNavigation()

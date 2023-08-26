@@ -41,11 +41,11 @@
     },
     "android": {
       "package": "net.votepurchase.kiroku",
-      "versionCode": 1,
+      "versionCode": 2,
       "userInterfaceStyle": "automatic",
       "config": {
         "googleMaps": {
-          "apiKey": "AIzaSyAHkA0ct8pTIdAdDKZChS69sVKUZpjUrFg"
+          "apiKey": "AIzaSyC7t5TlOezbcuMBa8N0nief9Bd3Yuzerdg"
         }
       },
       "permissions": [
