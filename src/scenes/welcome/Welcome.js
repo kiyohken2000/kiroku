@@ -4,6 +4,7 @@ import { fontSize, colors } from "../../theme";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import { useNavigation } from "@react-navigation/native";
 import ShadowButton from "../../components/ShadowButton";
+import LegalNotes from "../../components/LegalNotes";
 
 const { height, width } = Dimensions.get('window')
 
@@ -27,6 +28,7 @@ export default function Welcome() {
             resizeMode='contain'
             style={styles.image}
           />
+          <LegalNotes/>
         </View>
         <View style={{flex: 1, paddingHorizontal: 20}}>
           <ShadowButton
