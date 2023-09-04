@@ -9,7 +9,7 @@ export default function LegalNotes() {
   if(isIOS) {
     return (
       <View style={styles.container}>
-        <Text style={styles.label}>※このアプリは法的同意を文書化するものではありません</Text>
+        <Text style={styles.label}>※このアプリは性的パートナー間の{"\n"}同意を文書化することはできません</Text>
       </View>
     )
   }
