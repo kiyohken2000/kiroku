@@ -1,6 +1,11 @@
+import { Platform } from "react-native"
+
 const apiKey = 'AIzaSyCzAX6St6SUnKBIeKITeNhpCUZlxj44ZWE'
 const sheetId = '15OtDRuaSXWhZ8odAHi0E7Pn93hzvO3gvDIYSpopNngY'
-const sheetName = 'sheet1'
+const sheetName = Platform.select({
+  ios: 'sheet1',
+  android: 'sheet3'
+})
 const appSettingsSheetName = 'sheet2'
 
 const dataUrl = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${sheetName}?valueRenderOption=FORMATTED_VALUE&key=${apiKey}`

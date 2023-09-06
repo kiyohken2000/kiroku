@@ -41,7 +41,7 @@
     },
     "android": {
       "package": "net.votepurchase.kiroku",
-      "versionCode": 4,
+      "versionCode": 5,
       "userInterfaceStyle": "automatic",
       "config": {
         "googleMaps": {
