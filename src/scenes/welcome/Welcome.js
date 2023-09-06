@@ -20,7 +20,7 @@ export default function Welcome() {
       <View style={styles.container}>
         <View style={{flex: 4, alignItems: 'center', justifyContent: 'center'}}>
           <View style={{alignItems: 'center', paddingBottom: 30}}>
-            <Text style={styles.label}>性的記録同意アプリ</Text>
+            <Text style={styles.label}>性的同意記録アプリ</Text>
             <Text style={styles.title}>Kiroku</Text>
           </View>
           <Image

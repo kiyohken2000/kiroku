@@ -4,7 +4,7 @@ import { authenticate } from 'slices/app.slice'
 import { Text, SafeAreaView, StyleSheet } from "react-native";
 import { UserContext } from '../../contexts/UserContext';
 import { fontSize } from 'theme'
-import { loadUser, removeData } from './functions';
+import { loadUser, removeData, getAppMode } from './functions';
 
 export default function Loading() {
   const dispatch = useDispatch()
@@ -17,9 +17,11 @@ export default function Loading() {
   const initialize = async() => {
     //await removeData()
     const uuid = await loadUser()
+    const isReviewMode = await getAppMode()
     const user = {
       id: uuid,
-      userName: 'abcdef(not use)'
+      userName: 'abcdef(not use)',
+      isReviewMode,
     }
     setUser(user)
     dispatch(authenticate({ loggedIn: true, checked: true }))
