@@ -1,15 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, StyleSheet, Text, Image, Dimensions } from "react-native";
 import { fontSize, colors } from "../../theme";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import { useNavigation } from "@react-navigation/native";
 import ShadowButton from "../../components/ShadowButton";
 import LegalNotes from "../../components/LegalNotes";
+import { UserContext } from "../../contexts/UserContext";
 
 const { height, width } = Dimensions.get('window')
 
 export default function Welcome() {
   const navigation = useNavigation()
+  const { user } = useContext(UserContext)
+  const { isReviewMode } = user
+  const consentWord = isReviewMode?'賛成':'同意'
 
   const onButtonPress = () => {
     navigation.navigate('Home')
@@ -20,7 +24,7 @@ export default function Welcome() {
       <View style={styles.container}>
         <View style={{flex: 4, alignItems: 'center', justifyContent: 'center'}}>
           <View style={{alignItems: 'center', paddingBottom: 30}}>
-            <Text style={styles.label}>性的同意記録アプリ</Text>
+            <Text style={styles.label}>性的{consentWord}記録アプリ</Text>
             <Text style={styles.title}>Kiroku</Text>
           </View>
           <Image

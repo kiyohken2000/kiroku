@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 import { navigationProps } from './navigationProps/navigationProps'
+
+import { UserContext } from '../../../contexts/UserContext'
 
 import Home from '../../../scenes/home/Home'
 import Welcome from '../../../scenes/welcome/Welcome'
@@ -12,6 +14,10 @@ import HistoryDetail from '../../../scenes/historyDetail/HistoryDetail'
 const Stack = createStackNavigator()
 
 export const HomeStacks = () => {
+  const { user } = useContext(UserContext)
+  const { isReviewMode } = user
+  const consentWord = isReviewMode?'賛成':'同意'
+  
   return (
     <Stack.Navigator
       initialRouteName="Welcome"
@@ -39,7 +45,7 @@ export const HomeStacks = () => {
         name="Agreement"
         component={Agreement}
         options={({ navigation }) => ({
-          title: '同意確認をする',
+          title: `${consentWord}確認をする`,
           headerShown: false,
           headerBackTitleVisible: false,
         })}
@@ -48,7 +54,7 @@ export const HomeStacks = () => {
         name="History"
         component={History}
         options={({ navigation }) => ({
-          title: '同意履歴',
+          title: `${consentWord}履歴`,
           headerShown: true,
           headerBackTitleVisible: false,
         })}

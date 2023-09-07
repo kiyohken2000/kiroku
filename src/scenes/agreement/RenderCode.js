@@ -10,6 +10,8 @@ const { height, width } = Dimensions.get('window')
 export default function RenderCode(props) {
   const { location, qrcodeValue, setQrcodeValue } = props
   const { user } = useContext(UserContext)
+  const { isReviewMode } = user
+  const consentWord = isReviewMode?'賛成':'同意'
 
   useEffect(() => {
     const codeValue = generateQRcode({user, location})
@@ -26,7 +28,7 @@ export default function RenderCode(props) {
         <Text style={styles.label}>QRコードを</Text>
         <Text style={styles.label}>相手に読み込んでもらってください</Text>
         <View style={{paddingVertical: 5}} />
-        <Text style={styles.label}>「同意を完了する」を押すと</Text>
+        <Text style={styles.label}>「{consentWord}を完了する」を押すと</Text>
         <Text style={styles.label}>QRコードが保存されます</Text>
       </View>
       <QRCode

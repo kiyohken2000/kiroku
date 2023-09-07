@@ -15,7 +15,7 @@ const biometricStatus = async() => {
 
 const handleBiometricAuth = async() => {
   const biometricAuth = await LocalAuthentication.authenticateAsync({
-    promptMessage: '生体情報で同意',
+    promptMessage: '生体情報で認証',
     cancelLabel: 'キャンセル',
     disableDeviceFallback: false
   })

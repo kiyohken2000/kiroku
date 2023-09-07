@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, Text, StyleSheet, Dimensions, Platform } from "react-native";
 import { colors, fontSize } from "../../theme";
 import MapView, { Marker, PROVIDER_GOOGLE, PROVIDER_DEFAULT } from 'react-native-maps';
 import ShadowButton from "../../components/ShadowButton";
 import { useNavigation } from "@react-navigation/native";
+import { UserContext } from "../../contexts/UserContext";
 
 const { height, width } = Dimensions.get('window')
 const isAndroid = Platform.OS === 'android'
@@ -12,6 +13,8 @@ export default function RenderDetail(props) {
   const navigation = useNavigation()
   const { myCode, id, latitude, longitude, date, timestamp } = props
   const description = myCode?'自分':'相手'
+  const { user } = useContext(UserContext)
+  const { isReviewMode } = user
 
   const onDetailPress = () => {
     navigation.navigate('HistoryDetail', { timestamp })
@@ -31,7 +34,7 @@ export default function RenderDetail(props) {
         <Marker
           coordinate={{ latitude: latitude, longitude: longitude }}
           title={date}
-          description={`${description}が同意した場所`}
+          description={`${description}が${isReviewMode?'賛成':'同意'}した場所`}
         />
       </MapView>
       <View style={{paddingVertical: 10}}>

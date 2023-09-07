@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { View, StyleSheet, Alert } from "react-native";
 import { colors, fontSize } from "../../theme";
 import ScreenTemplate from "../../components/ScreenTemplate";
@@ -15,6 +15,7 @@ import Divider from "../../components/Divider";
 import { showToast } from "../../utils/showToast";
 import * as Device from 'expo-device';
 import { biometricStatus, handleBiometricAuth } from "../../utils/biometricAuth";
+import { UserContext } from "../../contexts/UserContext";
 
 export default function Agreement() {
   const navigation = useNavigation()
@@ -27,6 +28,8 @@ export default function Agreement() {
   const [isError, setIsError] = useState(false)
   const [location, setLocation] = useState(dummyLocation)
   const [qrcodeValue, setQrcodeValue] = useState('')
+  const { user } = useContext(UserContext)
+  const { isReviewMode } = user
 
   useEffect(() => {
     const fetchData = async() => {
@@ -138,7 +141,7 @@ export default function Agreement() {
           {isShowCode?
             <BottomButton
               onPress={onCompletePress}
-              label='同意を完了する'
+              label={`${isReviewMode?'賛成':'同意'}を完了する`}
             />:
             <BottomButton
               onPress={onGobackHome}

@@ -1,18 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, TouchableOpacity, Text, Dimensions, StyleSheet } from "react-native";
 import { fontSize, colors } from "../../theme";
+import { UserContext } from "../../contexts/UserContext";
 
 const { height, width } = Dimensions.get('window')
 
 export default function AgreementButton(props) {
   const { onPress } = props
+  const { user } = useContext(UserContext)
+  const { isReviewMode } = user
+  const consentWord = isReviewMode?'賛成':'同意'
 
   return (
     <TouchableOpacity
       onPress={onPress}
       style={styles.button}
     >
-      <Text style={styles.label}>同意確認をする</Text>
+      <Text style={styles.label}>{consentWord}確認をする</Text>
     </TouchableOpacity>
   )
 }

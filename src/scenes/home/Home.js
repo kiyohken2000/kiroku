@@ -15,6 +15,8 @@ const { height, width } = Dimensions.get('window')
 export default function Home() {
   const navigation = useNavigation()
   const { user } = useContext(UserContext)
+  const { isReviewMode } = user
+  const consentWord = isReviewMode?'賛成':'同意'
 
   const onGoAgreementPress = () => {
     navigation.navigate('Agreement')
@@ -53,7 +55,7 @@ export default function Home() {
           <View style={{paddingVertical: 20}} />
           <ShadowButton
             onPress={onHistoryPress}
-            label='同意履歴を見る'
+            label={`${consentWord}履歴を見る`}
             color={colors.white}
             labelColor={colors.graySecondary}
           />
@@ -68,7 +70,7 @@ export default function Home() {
         <View style={{flex: 1}}>
           <BottomButton
             onPress={onGoAgreementPress}
-            label='同意確認をする'
+            label={`${consentWord}確認をする`}
           />
         </View>
       </View>

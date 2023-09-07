@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { fontSize, colors } from "../../theme";
 import RenderTitle from "./RenderTitle";
 import RenderContent from "./RenderContent";
 import ShadowButton from "../../components/ShadowButton";
+import { UserContext } from "../../contexts/UserContext";
 
 export default function AgreementItem(props) {
   const { currentData, onAgreePress, stepCount } = props
   const { index, title, content } = currentData
+  const { user } = useContext(UserContext)
+  const { isReviewMode } = user
 
   return (
     <View style={styles.container}>
@@ -19,7 +22,7 @@ export default function AgreementItem(props) {
       </View>
       <View style={{flex: 1.5, justifyContent: 'space-around' }}>
         <ShadowButton
-          label='上記について同意しました'
+          label={`上記について${isReviewMode?'確認':'同意'}しました`}
           onPress={() => onAgreePress({num: 1})}
           color={colors.graySecondary}
           labelColor={colors.white}
