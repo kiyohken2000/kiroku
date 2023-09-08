@@ -48,6 +48,7 @@
           "apiKey": "AIzaSyC7t5TlOezbcuMBa8N0nief9Bd3Yuzerdg"
         }
       },
+      "googleServicesFile": "./google-services.json",
       "permissions": [
         "VIBRATE",
         "CAMERA",

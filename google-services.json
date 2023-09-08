@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "491341415336",
+    "project_id": "kiroku-app",
+    "storage_bucket": "kiroku-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:491341415336:android:f91d23c12eb7a2199f539d",
+        "android_client_info": {
+          "package_name": "net.votepurchase.kiroku"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "491341415336-mj4qbcqurvqbgt06gf9apj0b4m24pf22.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAu0wT-mC9I8bKducCjIWg64qr943bsdVU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "491341415336-mj4qbcqurvqbgt06gf9apj0b4m24pf22.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

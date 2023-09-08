@@ -16,4 +16,9 @@ const storageKey = {
   code: 'code'
 }
 
-export { dataUrl, storageKey, appSettingsUrl }
+const expoSettings = {
+  slug: 'kiroku',
+  projectId: '77c0224b-a231-42c7-bff8-b404fd952586'
+}
+
+export { dataUrl, storageKey, appSettingsUrl, expoSettings }
