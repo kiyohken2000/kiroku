@@ -22,7 +22,7 @@ const getLocation = async() => {
   return {latitude, longitude}
 }
 
-const generateQRcode = ({user, location}) => {
+const generateQRcode = ({user, location, token}) => {
   const { id } = user
   const { latitude, longitude } = location
   const date = moment().format('YYYY-MM-DD HH:mm:ss')
@@ -32,7 +32,8 @@ const generateQRcode = ({user, location}) => {
     latitude,
     longitude,
     date,
-    timestamp: moment().unix()
+    timestamp: moment().unix(),
+    token,
   }
   const response = JSON.stringify(data)
   return response
@@ -41,13 +42,16 @@ const generateQRcode = ({user, location}) => {
 const storeCode = async({qrcodeValue, data}) => {
   const currentData = await loadData()
   const newData = [...currentData, qrcodeValue]
+  console.log('storeCode save')
   await storage.save({key: storageKey.code, data: newData})
   await saveAgreement({data, qrcodeValue})
 }
 
 const saveAgreement = async({data, qrcodeValue}) => {
   const { timestamp } = JSON.parse(qrcodeValue)
-  await storage.save({key: `${timestamp}`, data})
+  console.log('saveAgreement save')
+  if(!data) return
+  await storage.save({key: `${timestamp}`, data: data})
 }
 
 const loadData = async() => {

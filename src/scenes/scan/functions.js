@@ -7,7 +7,7 @@ import { storage } from "../../utils/storage"
 const parseParams = async({data}) => {
   try {
     const _data = JSON.parse(data)
-    const { myCode, id, latitude, longitude, date, timestamp } = _data
+    const { myCode, id, latitude, longitude, date, timestamp, token } = _data
     if (!id || !latitude || !longitude || !date || !timestamp) {
       return false
     } else {
@@ -29,14 +29,22 @@ const parseParams = async({data}) => {
   }
 }
 
+const getPushTokenFromQRcode = ({data}) => {
+  const _data = JSON.parse(data)
+  const { myCode, id, latitude, longitude, date, timestamp, token } = _data
+  return {date, timestamp, token}
+}
+
 const fetchData = async({timestamp}) => {
   try {
     const { data } = await axios.get(dataUrl)
     const _data = formatData({data})
+    if(!_data) return false
+    console.log('fetchData save')
     await storage.save({key: `${timestamp}`, data: _data})
   } catch(e) {
     throw new Error('fetch data error', e);
   }
 }
 
-export { parseParams }
+export { parseParams, getPushTokenFromQRcode, fetchData }

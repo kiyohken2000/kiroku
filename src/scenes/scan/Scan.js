@@ -4,14 +4,20 @@ import ScreenTemplate from '../../components/ScreenTemplate'
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { BarCodeScanner } from 'expo-barcode-scanner'
 import { fontSize, colors } from "../../theme";
-import { parseParams } from "./functions";
+import { parseParams, getPushTokenFromQRcode } from "./functions";
 import { showToast } from "../../utils/showToast";
+import { getLocation } from "../agreement/functions";
+import { sendNotification, getPushToken } from "../../utils/notificationsFunctions";
+import Spinner from 'react-native-loading-spinner-overlay';
+import { UserContext } from "../../contexts/UserContext";
 
 export default function Scan() {
   const navigation = useNavigation()
   const [hasPermission, setHasPermission] = useState(null)
   const [scanned, setScanned] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const infoText = '相手の' + '\n' + 'QRコードを読み取ってください';
+  const { user } = useContext(UserContext)
 
   useFocusEffect(() => {
     setScanned(false)
@@ -25,14 +31,34 @@ export default function Scan() {
   }, []);
 
   const handleBarCodeScanned = async({ type, data }) => {
-    setScanned(true)
-    const result = await parseParams({data})
-    if(!result) {
-      invalidCode({message: '有効なQRコードではありません。'})
-    } else {
+    try {
+      setScanned(true)
+      const result = await parseParams({data})
+      if(!result) return invalidCode({message: '有効なQRコードではありません。'})
+      const {date, timestamp, token} = getPushTokenFromQRcode({data})
+      if(token) {
+        setIsLoading(true)
+        const {latitude, longitude} = await getLocation()
+        const response = await sendNotification({
+          title: 'QRコードがスキャンされました',
+          body: '',
+          token: token,
+          data: {
+            latitude,
+            longitude,
+            id: user.id,
+            date,
+            timestamp
+          }
+        })
+        console.log(response)
+        setIsLoading(false)
+      }
       showToast({title: '保存しました'})
       setScanned(false)
       navigation.goBack()
+    } catch(e) {
+      console.log('handleBarCodeScanned error', e)
     }
   }
 
@@ -77,6 +103,12 @@ export default function Scan() {
           :null
         }
       </View>
+      <Spinner
+        visible={isLoading}
+        textContent=""
+        color={colors.graySecondary}
+        overlayColor={colors.overlayColor}
+      />
     </ScreenTemplate>
   )
 }

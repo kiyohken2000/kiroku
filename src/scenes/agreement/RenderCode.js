@@ -4,6 +4,7 @@ import { colors, fontSize } from "../../theme";
 import QRCode from 'react-native-qrcode-svg';
 import { UserContext } from "../../contexts/UserContext";
 import { generateQRcode } from "./functions";
+import { getPushToken } from "../../utils/notificationsFunctions";
 
 const { height, width } = Dimensions.get('window')
 
@@ -12,8 +13,12 @@ export default function RenderCode(props) {
   const { user } = useContext(UserContext)
 
   useEffect(() => {
-    const codeValue = generateQRcode({user, location})
-    setQrcodeValue(codeValue)
+    const generateCode = async() => {
+      const token = await getPushToken()
+      const codeValue = generateQRcode({user, location, token})
+      setQrcodeValue(codeValue)
+    }
+    generateCode()
   }, [location, user])
 
   if(!qrcodeValue) {
