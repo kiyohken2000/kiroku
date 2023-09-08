@@ -28,8 +28,6 @@ export default function Agreement() {
   const [isError, setIsError] = useState(false)
   const [location, setLocation] = useState(dummyLocation)
   const [qrcodeValue, setQrcodeValue] = useState('')
-  const { user } = useContext(UserContext)
-  const { isReviewMode } = user
 
   useEffect(() => {
     const fetchData = async() => {
@@ -141,7 +139,7 @@ export default function Agreement() {
           {isShowCode?
             <BottomButton
               onPress={onCompletePress}
-              label={`${isReviewMode?'賛成':'同意'}を完了する`}
+              label={`同意を完了する`}
             />:
             <BottomButton
               onPress={onGobackHome}

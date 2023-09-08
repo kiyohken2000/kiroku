@@ -13,8 +13,6 @@ export default function RenderDetail(props) {
   const navigation = useNavigation()
   const { myCode, id, latitude, longitude, date, timestamp } = props
   const description = myCode?'自分':'相手'
-  const { user } = useContext(UserContext)
-  const { isReviewMode } = user
 
   const onDetailPress = () => {
     navigation.navigate('HistoryDetail', { timestamp })
@@ -34,7 +32,7 @@ export default function RenderDetail(props) {
         <Marker
           coordinate={{ latitude: latitude, longitude: longitude }}
           title={date}
-          description={`${description}が${isReviewMode?'賛成':'同意'}した場所`}
+          description={`${description}が同意した場所`}
         />
       </MapView>
       <View style={{paddingVertical: 10}}>

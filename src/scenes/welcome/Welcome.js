@@ -4,7 +4,6 @@ import { fontSize, colors } from "../../theme";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import { useNavigation } from "@react-navigation/native";
 import ShadowButton from "../../components/ShadowButton";
-import LegalNotes from "../../components/LegalNotes";
 import { UserContext } from "../../contexts/UserContext";
 
 const { height, width } = Dimensions.get('window')
@@ -13,7 +12,7 @@ export default function Welcome() {
   const navigation = useNavigation()
   const { user } = useContext(UserContext)
   const { isReviewMode } = user
-  const consentWord = isReviewMode?'賛成':'同意'
+  const consentWord = isReviewMode?'積極的同意サポートアプリ':'性的同意アプリ'
 
   const onButtonPress = () => {
     navigation.navigate('Home')
@@ -24,7 +23,7 @@ export default function Welcome() {
       <View style={styles.container}>
         <View style={{flex: 4, alignItems: 'center', justifyContent: 'center'}}>
           <View style={{alignItems: 'center', paddingBottom: 30}}>
-            <Text style={styles.label}>性的{consentWord}記録アプリ</Text>
+            <Text style={styles.label}>{consentWord}</Text>
             <Text style={styles.title}>Kiroku</Text>
           </View>
           <Image
@@ -32,7 +31,6 @@ export default function Welcome() {
             resizeMode='contain'
             style={styles.image}
           />
-          <LegalNotes/>
         </View>
         <View style={{flex: 1, paddingHorizontal: 20}}>
           <ShadowButton

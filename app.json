@@ -26,12 +26,12 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "net.votepurchase.kiroku",
-      "buildNumber": "8",
+      "buildNumber": "9",
       "infoPlist": {
         "NSPhotoLibraryUsageDescription": "Use the photo library to change your avatar.",
-        "NSLocationWhenInUseUsageDescription": "このアプリは賛成確認時の情報を記録するために位置情報使用します",
-        "NSCameraUsageDescription": "このアプリは賛成確認したQRコードを読み取るためにカメラを使用します",
-        "NSFaceIDUsageDescription": "このアプリは賛成確認を行うためにFaceIDを使用します",
+        "NSLocationWhenInUseUsageDescription": "このアプリは同意確認時の情報を記録するために位置情報使用します",
+        "NSCameraUsageDescription": "このアプリは同意確認したQRコードを読み取るためにカメラを使用します",
+        "NSFaceIDUsageDescription": "このアプリは同意確認を行うためにFaceIDを使用します",
         "CFBundleDevelopmentRegion": "ja_JP"
       },
       "config": {

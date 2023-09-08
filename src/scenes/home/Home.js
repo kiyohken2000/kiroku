@@ -6,7 +6,6 @@ import ScreenTemplate from '../../components/ScreenTemplate'
 import AgreementButton from './AgreementButton'
 import ShadowButton from '../../components/ShadowButton'
 import BottomButton from '../../components/BottomButton'
-import { UserContext } from '../../contexts/UserContext'
 import * as Device from 'expo-device';
 import { biometricStatus, handleBiometricAuth } from '../../utils/biometricAuth'
 
@@ -14,9 +13,6 @@ const { height, width } = Dimensions.get('window')
 
 export default function Home() {
   const navigation = useNavigation()
-  const { user } = useContext(UserContext)
-  const { isReviewMode } = user
-  const consentWord = isReviewMode?'賛成':'同意'
 
   const onGoAgreementPress = () => {
     navigation.navigate('Agreement')
@@ -55,7 +51,7 @@ export default function Home() {
           <View style={{paddingVertical: 20}} />
           <ShadowButton
             onPress={onHistoryPress}
-            label={`${consentWord}履歴を見る`}
+            label={`同意履歴を見る`}
             color={colors.white}
             labelColor={colors.graySecondary}
           />
@@ -70,7 +66,7 @@ export default function Home() {
         <View style={{flex: 1}}>
           <BottomButton
             onPress={onGoAgreementPress}
-            label={`${consentWord}確認をする`}
+            label={`同意確認をする`}
           />
         </View>
       </View>
