@@ -33,6 +33,7 @@ export default function RenderDetail(props) {
           coordinate={{ latitude: latitude, longitude: longitude }}
           title={date}
           description={`${description}が同意した場所`}
+          pinColor={myCode?'red':'blue'}
         />
       </MapView>
       <View style={{paddingVertical: 10}}>
