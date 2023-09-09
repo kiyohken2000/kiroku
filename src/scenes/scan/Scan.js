@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { View, Text, StyleSheet, Dimensions, Image, Alert } from "react-native";
+import { View, Text, StyleSheet, Dimensions, Image, Alert, Platform } from "react-native";
 import ScreenTemplate from '../../components/ScreenTemplate'
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { BarCodeScanner } from 'expo-barcode-scanner'
@@ -10,6 +10,8 @@ import { getLocation } from "../agreement/functions";
 import { sendNotification, getPushToken } from "../../utils/notificationsFunctions";
 import Spinner from 'react-native-loading-spinner-overlay';
 import { UserContext } from "../../contexts/UserContext";
+
+const isIOS = Platform.OS === 'ios'
 
 export default function Scan() {
   const navigation = useNavigation()
@@ -97,7 +99,10 @@ export default function Scan() {
                 style={styles.image}
                 resizeMode='contain'
               />
-              <Text style={styles.infoText}>{infoText}</Text>
+              {isIOS?
+                <Text style={styles.infoText}>{infoText}</Text>
+                :null
+              }
             </View>
           </BarCodeScanner>
           :null
