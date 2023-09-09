@@ -4,15 +4,16 @@ import { colors, fontSize } from "../../theme";
 import MapView, { Marker, PROVIDER_GOOGLE, PROVIDER_DEFAULT } from 'react-native-maps';
 import ShadowButton from "../../components/ShadowButton";
 import { useNavigation } from "@react-navigation/native";
-import { UserContext } from "../../contexts/UserContext";
+import { identifyUserAction } from "./functions";
 
 const { height, width } = Dimensions.get('window')
 const isAndroid = Platform.OS === 'android'
 
 export default function RenderDetail(props) {
   const navigation = useNavigation()
-  const { myCode, id, latitude, longitude, date, timestamp } = props
+  const { myCode, id, latitude, longitude, date, timestamp, isScanned } = props
   const description = myCode?'自分':'相手'
+  const { icon, color, word } = identifyUserAction({myCode, isScanned})
 
   const onDetailPress = () => {
     navigation.navigate('HistoryDetail', { timestamp })
@@ -32,7 +33,7 @@ export default function RenderDetail(props) {
         <Marker
           coordinate={{ latitude: latitude, longitude: longitude }}
           title={date}
-          description={`${description}が同意した場所`}
+          description={word}
           pinColor={myCode?'red':'blue'}
         />
       </MapView>

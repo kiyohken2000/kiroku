@@ -34,6 +34,7 @@ const generateQRcode = ({user, location, token}) => {
     date,
     timestamp: moment().unix(),
     token,
+    isScanned: false,
   }
   const response = JSON.stringify(data)
   return response

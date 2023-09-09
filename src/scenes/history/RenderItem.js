@@ -5,10 +5,12 @@ import Divider from "../../components/Divider";
 import { formatDate } from "./functions";
 import FontIcon from 'react-native-vector-icons/FontAwesome5'
 import RenderDetail from "./RenderDetail";
+import { identifyUserAction } from "./functions";
 
 export default function RenderItem(props) {
-  const { myCode, id, latitude, longitude, date, timestamp } = props.item
+  const { myCode, id, latitude, longitude, date, timestamp, isScanned } = props.item
   const [visible, setVisible] = useState(false)
+  const { icon, color } = identifyUserAction({myCode, isScanned})
 
   const onItemPress = () => {
     setVisible(!visible)
@@ -27,8 +29,15 @@ export default function RenderItem(props) {
             color={colors.graySecondary}
           />
         </View>
-        <View style={{flex: 3, alignItems: 'flex-end'}}>
-          <Text style={styles.label}>{formatDate({date})}</Text>
+        <View style={styles.rightContainer}>
+          <FontIcon
+            name={icon}
+            size={20}
+            color={color}
+          />
+          <View style={{paddingLeft: 10}}>
+            <Text style={styles.label}>{formatDate({date})}</Text>
+          </View>
         </View>
       </TouchableOpacity>
       {visible?
@@ -40,6 +49,7 @@ export default function RenderItem(props) {
             longitude={longitude}
             date={date}
             timestamp={timestamp}
+            isScanned={isScanned}
           />
         </View>
         :null
@@ -65,5 +75,11 @@ const styles = StyleSheet.create({
   },
   detailContainer: {
     paddingBottom: 20
+  },
+  rightContainer: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    flexDirection: 'row',
+    alignItems: 'center'
   }
 })

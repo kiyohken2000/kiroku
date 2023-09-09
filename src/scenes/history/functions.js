@@ -1,6 +1,7 @@
 import { storageKey } from "../../config";
 import { storage } from "../../utils/storage";
 import moment from "moment";
+import { colors } from "../../theme";
 
 const loadStorage = async() => {
   try {
@@ -28,4 +29,14 @@ const formatDate = ({date}) => {
   return result
 }
 
-export { loadStorage, formatDate }
+const identifyUserAction = ({myCode, isScanned}) => {
+  if(isScanned) {
+    return {word: 'スキャンされた場所', icon: 'qrcode', color: colors.bluePrimary}
+  } else if(myCode) {
+    return {word: '自分が同意した場所', icon: 'user', color: colors.redPrimary}
+  } else {
+    return {word: '相手が同意した場所', icon: 'user-circle', color: colors.bluePrimary}
+  }
+}
+
+export { loadStorage, formatDate, identifyUserAction }

@@ -27,7 +27,8 @@ export default () => {
           latitude,
           longitude,
           date,
-          timestamp
+          timestamp,
+          isScanned: true,
         }
         const response = JSON.stringify(data)
         await storeCode({qrcodeValue: response})

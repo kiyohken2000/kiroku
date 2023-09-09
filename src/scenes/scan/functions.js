@@ -17,7 +17,8 @@ const parseParams = async({data}) => {
         latitude,
         longitude,
         date,
-        timestamp
+        timestamp,
+        isScanned: false,
       }
       const response = JSON.stringify(data)
       await storeCode({qrcodeValue: response})
