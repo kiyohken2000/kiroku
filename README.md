@@ -1,4 +1,9 @@
 ```
+app.jsonを確認
+- name
+- icon
+- splash
+
 // ビルド:開発用バイナリ
 eas build --profile development --platform ios
 eas build --profile development --platform android
