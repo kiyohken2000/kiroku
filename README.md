@@ -1,8 +1,4 @@
 ```
-app.jsonを確認
-- name
-- icon
-- splash
 
 // ビルド:開発用バイナリ
 eas build --profile development --platform ios
@@ -11,6 +7,11 @@ eas build --profile development --platform android
 // ビルド:内部配布バイナリ
 eas build --profile preview --platform ios
 eas build --profile preview --platform android
+
+app.jsonを確認(Android/iPhoneでそれぞれ違う)
+- name
+- icon
+- splash
 
 // ビルド:プロダクション
 eas build --profile production --platform ios
