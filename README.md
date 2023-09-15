@@ -37,3 +37,4 @@ npx patch-package [package name]
 **プライバシーポリシー**
 
 https://kiyohken2000.github.io/kiroku/ja
+https://kiyohken2000.github.io/kiroku/doui

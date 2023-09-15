@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { View, StyleSheet, Text, Image, Dimensions } from "react-native";
+import { View, StyleSheet, Text, Image, Dimensions, Platform } from "react-native";
 import { fontSize, colors } from "../../theme";
 import ScreenTemplate from "../../components/ScreenTemplate";
 import { useNavigation } from "@react-navigation/native";
@@ -7,6 +7,14 @@ import ShadowButton from "../../components/ShadowButton";
 import { UserContext } from "../../contexts/UserContext";
 
 const { height, width } = Dimensions.get('window')
+const imageSource = Platform.select({
+  ios: require('../../../assets/images/logo-sm-iphone.png'),
+  android: require('../../../assets/images/logo-sm.png')
+})
+const appName = Platform.select({
+  ios: 'ドウイ',
+  android: 'Kiroku'
+})
 
 export default function Welcome() {
   const navigation = useNavigation()
@@ -24,10 +32,10 @@ export default function Welcome() {
         <View style={{flex: 4, alignItems: 'center', justifyContent: 'center'}}>
           <View style={{alignItems: 'center', paddingBottom: 30}}>
             <Text style={styles.label}>{consentWord}</Text>
-            <Text style={styles.title}>Kiroku</Text>
+            <Text style={styles.title}>{appName}</Text>
           </View>
           <Image
-            source={require('../../../assets/images/logo-sm.png')}
+            source={imageSource}
             resizeMode='contain'
             style={styles.image}
           />
