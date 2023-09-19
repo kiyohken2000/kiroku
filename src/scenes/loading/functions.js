@@ -50,6 +50,7 @@ const fetchAppSettings = async() => {
     const { data } = await axios.get(appSettingsUrl)
     const res = formatData({data})
     const { nowReview } = res[0]
+    console.log({nowReview})
     const mode = Number(nowReview)
     if(mode === 1) {
       return true

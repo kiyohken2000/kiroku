@@ -5,6 +5,7 @@ import MapView, { Marker, PROVIDER_GOOGLE, PROVIDER_DEFAULT } from 'react-native
 import ShadowButton from "../../components/ShadowButton";
 import { useNavigation } from "@react-navigation/native";
 import { identifyUserAction } from "./functions";
+import { UserContext } from "../../contexts/UserContext";
 
 const { height, width } = Dimensions.get('window')
 const isAndroid = Platform.OS === 'android'
@@ -14,6 +15,7 @@ export default function RenderDetail(props) {
   const { myCode, id, latitude, longitude, date, timestamp, isScanned } = props
   const description = myCode?'自分':'相手'
   const { icon, color, word } = identifyUserAction({myCode, isScanned})
+  const { user } = useContext(UserContext)
 
   const onDetailPress = () => {
     navigation.navigate('HistoryDetail', { timestamp })
@@ -40,12 +42,15 @@ export default function RenderDetail(props) {
       <View style={{paddingVertical: 10}}>
         <Text style={styles.id}>{description}のID: {id}</Text>
       </View>
-      <ShadowButton
-        label='詳細'
-        onPress={onDetailPress}
-        color={colors.white}
-        labelColor={colors.graySecondary}
-      />
+      {!user.isReviewMode?
+        <ShadowButton
+          label='詳細'
+          onPress={onDetailPress}
+          color={colors.white}
+          labelColor={colors.graySecondary}
+        />
+        :null
+      }
     </View>
   )
 }
