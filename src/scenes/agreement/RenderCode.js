@@ -30,9 +30,13 @@ export default function RenderCode(props) {
       <View style={styles.labelContainer}>
         <Text style={styles.label}>QRコードを</Text>
         <Text style={styles.label}>相手に読み込んでもらってください</Text>
-        <View style={{paddingVertical: 5}} />
-        <Text style={styles.label}>「同意を完了する」を押すと</Text>
-        <Text style={styles.label}>内容が保存されます</Text>
+        {!user.isReviewMode?
+          <View style={{paddingVertical: 5}}>
+            <Text style={styles.label}>「同意を完了する」を押すと</Text>
+            <Text style={styles.label}>内容が保存されます</Text>
+          </View>
+          :null
+        }
       </View>
       <QRCode
         value={qrcodeValue}
