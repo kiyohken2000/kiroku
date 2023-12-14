@@ -17,6 +17,13 @@ const getLocation = async() => {
     setErrorMsg('Permission to access location was denied');
     return dummyLocation
   }
+  const lastKnownPosition = await Location.getLastKnownPositionAsync({
+    maxAge: 600000
+  })
+  if(lastKnownPosition) {
+    const { latitude, longitude } = lastKnownPosition.coords
+    return {latitude, longitude}
+  }
   let location = await Location.getCurrentPositionAsync({});
   const { latitude, longitude } = location.coords
   return {latitude, longitude}

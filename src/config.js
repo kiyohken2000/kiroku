@@ -21,4 +21,6 @@ const expoSettings = {
   projectId: '77c0224b-a231-42c7-bff8-b404fd952586'
 }
 
-export { dataUrl, storageKey, appSettingsUrl, expoSettings }
+const version = '1.0.1'
+
+export { dataUrl, storageKey, appSettingsUrl, expoSettings, version }

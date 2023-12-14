@@ -5,6 +5,7 @@ import ScreenTemplate from "../../components/ScreenTemplate";
 import { useNavigation } from "@react-navigation/native";
 import ShadowButton from "../../components/ShadowButton";
 import { UserContext } from "../../contexts/UserContext";
+import { version } from "../../config";
 
 const { height, width } = Dimensions.get('window')
 const imageSource = Platform.select({
@@ -48,6 +49,9 @@ export default function Welcome() {
             labelColor={colors.white}
           />
         </View>
+        <View style={styles.footer}>
+          <Text style={styles.label}>version. {version}</Text>
+        </View>
       </View>
     </ScreenTemplate>
   )
@@ -68,5 +72,8 @@ const styles = StyleSheet.create({
     width: width * 0.7,
     height: width * 0.7,
     borderRadius: 10
+  },
+  footer: {
+    alignItems: 'center'
   }
 })
